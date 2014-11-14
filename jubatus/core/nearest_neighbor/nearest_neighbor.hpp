@@ -20,5 +20,6 @@
 #include "euclid_lsh.hpp"
 #include "lsh.hpp"
 #include "minhash.hpp"
+#include "fast_lsh.hpp"
 
 #endif  // JUBATUS_CORE_NEAREST_NEIGHBOR_NEAREST_NEIGHBOR_HPP_

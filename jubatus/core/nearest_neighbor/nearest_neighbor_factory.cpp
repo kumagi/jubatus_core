@@ -48,6 +48,9 @@ shared_ptr<nearest_neighbor_base> create_nearest_neighbor(
   } else if (name == "minhash") {
     return shared_ptr<nearest_neighbor_base>(
         new minhash(config_cast_check<minhash::config>(config), table, id));
+  } else if (name == "fast_lsh"){
+    return shared_ptr<nearest_neighbor_base>(
+        new fast_lsh(config_cast_check<fast_lsh::config>(config), table, id));
   } else {
     throw JUBATUS_EXCEPTION(common::unsupported_method(name));
   }

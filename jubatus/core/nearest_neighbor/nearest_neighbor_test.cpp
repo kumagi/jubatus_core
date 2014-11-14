@@ -22,15 +22,20 @@
 #include <gtest/gtest.h>
 #include "jubatus/util/lang/shared_ptr.h"
 #include "jubatus/util/lang/cast.h"
+#include "jubatus/util/math/random.h"
+#include "jubatus/util/lang/cast.h"
 #include "../common/jsonconfig.hpp"
 #include "nearest_neighbor.hpp"
 #include "nearest_neighbor_base.hpp"
 #include "nearest_neighbor_factory.hpp"
 
+
 using std::map;
+using std::make_pair;
 using std::string;
 using std::vector;
 using jubatus::util::lang::shared_ptr;
+using jubatus::util::lang::lexical_cast;
 
 namespace jubatus {
 namespace core {
@@ -151,8 +156,25 @@ TEST_P(nearest_neighbor_test, empty_neighbor_row) {
 
 // TODO(beam2d): Write approximated test of neighbor_row().
 
+TEST_P(nearest_neighbor_test, neighbor_row) {
+  nearest_neighbor_base* nn = get_nn();
+  util::math::random::mtrand r(0);
+  for (size_t j = 0; j < 100; ++j) {
+    common::sfv_t sfv;
+    sfv.push_back(make_pair("a", r.next_gaussian()));
+    sfv.push_back(make_pair("b", r.next_gaussian()));
+    nn->set_row(lexical_cast<string>(j), sfv);
+  }
+
+  for (int i = 0; i < 10000; ++i) {
+    std::vector<std::pair<std::string, float> > ids;
+    nn->neighbor_row(lexical_cast<string>(i % 100), ids, 8);
+  }
+}
+
 const map<string, string> configs[] = {
   make_config("nearest_neighbor:name", "lsh")("hash_num", "64")(),
+  make_config("nearest_neighbor:name", "fast_lsh")("hash_num", "64")("k_neighbor", "8")(),
   make_config("nearest_neighbor:name", "minhash")("hash_num", "64")(),
   make_config(
       "nearest_neighbor:name", "euclid_lsh")(

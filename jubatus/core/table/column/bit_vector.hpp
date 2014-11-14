@@ -84,7 +84,7 @@ inline size_t bitcount(T bits) {
 
 class bit_vector_unmatch_exception
     : public common::exception::jubaexception<bit_vector_unmatch_exception> {
- public:
+public:
   explicit bit_vector_unmatch_exception(const std::string &msg)
       : msg_(msg) {}
   ~bit_vector_unmatch_exception() throw() {}

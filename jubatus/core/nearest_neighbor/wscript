@@ -10,14 +10,17 @@ def build(bld):
       'nearest_neighbor_base.cpp',
       'nearest_neighbor_factory.cpp',
       'bit_vector_nearest_neighbor_base.cpp',
+      'cached_bit_vector_neighbors_base.cpp',
       'bit_vector_ranking.cpp',
       'minhash.cpp',
       'lsh.cpp',
+      'fast_lsh.cpp',
       'lsh_function.cpp',
       'euclid_lsh.cpp'
     ]
   headers = [
       'bit_vector_nearest_neighbor_base.hpp',
+      'cached_bit_vector_neighbors_base.hpp',
       'bit_vector_ranking.hpp',
       'euclid_lsh.hpp',
       'exception.hpp',
